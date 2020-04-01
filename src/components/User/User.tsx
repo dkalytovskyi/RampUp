@@ -1,49 +1,54 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
 
-import { userFormRules, initialValues } from './constants';
+import { userFormRules } from '../../constants/userConstants';
 
 import './styles.css';
   
-export interface UserFormValues {
+type Props = {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    newsletter?: boolean;
+};
+
+type DefaultProps = {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
     newsletter: boolean;
-}
+};
+
+const defaultProps: DefaultProps = { 
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    newsletter: true
+};
+
+export interface UserFormValues {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    newsletter?: boolean;
+};
 
 export interface UserFormRules {
     firstName: Array<Object>;
     lastName: Array<Object>;
     email: Array<Object>;
     password: Array<Object>;
+};
+
+const getInitialValues = (props: Props): UserFormValues => {
+    return {...props};
 }
 
-const getInitialValues = (props: any) => {
-    const currentInitialValues: UserFormValues = initialValues;
-    const { firstName, lastName, email, password, newsletter } = props;
-
-    if (firstName) {
-        currentInitialValues.firstName = firstName;
-    }
-    if (lastName) {
-        currentInitialValues.lastName = lastName;
-    }
-    if (email) {
-        currentInitialValues.email = email;
-    }
-    if (password) {
-        currentInitialValues.password = password;
-    }
-    if (newsletter === false) {
-        currentInitialValues.newsletter = newsletter;
-    }
-
-    return currentInitialValues;
-}
-
-export function User(props: any) {
+export const User: FC<Props> = (props) => {
     const { Title } = Typography;
 
     const formValues = getInitialValues(props);
@@ -138,4 +143,6 @@ export function User(props: any) {
             </Form>
         </div>
     );
-}
+};
+
+User.defaultProps = defaultProps;

@@ -1,12 +1,4 @@
-import { UserFormValues, UserFormRules } from './User';
-
-export const initialValues: UserFormValues = { 
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    newsletter: true
-};
+import { UserFormRules } from '../components/User/User';
 
 export const userFormRules: UserFormRules = {
     firstName: [{
