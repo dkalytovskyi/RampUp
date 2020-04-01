@@ -1,9 +1,11 @@
 import React from 'react';
 import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
 
+import { userFormRules, initialValues } from './constants';
+
 import './styles.css';
   
-interface MyFormValues {
+export interface UserFormValues {
     firstName: string;
     lastName: string;
     email: string;
@@ -11,40 +13,40 @@ interface MyFormValues {
     newsletter: boolean;
 }
 
-interface MyFormRules {
+export interface UserFormRules {
     firstName: Array<Object>;
     lastName: Array<Object>;
     email: Array<Object>;
     password: Array<Object>;
 }
 
-export function User() {
+const getInitialValues = (values: any) => {
+    const currentInitialValues: UserFormValues = initialValues;
+    const { firstName, lastName, email, password, newsletter } = values;
+
+    if (firstName) {
+        currentInitialValues.firstName = firstName;
+    }
+    if (lastName) {
+        currentInitialValues.lastName = lastName;
+    }
+    if (email) {
+        currentInitialValues.email = email;
+    }
+    if (password) {
+        currentInitialValues.password = password;
+    }
+    if (newsletter === false) {
+        currentInitialValues.newsletter = newsletter;
+    }
+
+    return currentInitialValues;
+}
+
+export function User({ userFormValues = initialValues }: any) {
     const { Title } = Typography;
 
-    const initialValues: MyFormValues = { 
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        newsletter: false
-    };
-
-    const formRules: MyFormRules = {
-        firstName: [{
-            required: true, message: 'Please input your first name!'
-        }],
-        lastName: [{
-            required: true, message: 'Please input your last name!'
-        }],
-        email: [{ 
-            required: true, message: 'Please input your E-mail!'
-        }, {
-            type: 'email', message: 'Invalid E-mail!'
-        }],
-        password: [{
-            required: true, message: 'Please input your password!'
-        }],
-    }
+    const formValues = getInitialValues(userFormValues);
 
     const layout = {
         labelCol: { span: 4 },
@@ -67,7 +69,7 @@ export function User() {
             <Form
                 {...layout}
                 name='signup'
-                initialValues={initialValues}
+                initialValues={formValues}
                 onFinish={onFinish}
             >
                 <Input.Group size='large'>
@@ -76,7 +78,7 @@ export function User() {
                             <Form.Item
                                 label='First name'
                                 name='firstName'
-                                rules={formRules.firstName}
+                                rules={userFormRules.firstName}
                             >
                                 <Input />
                             </Form.Item>
@@ -87,7 +89,7 @@ export function User() {
                             <Form.Item
                                 label='Last name'
                                 name='lastName'
-                                rules={formRules.lastName}
+                                rules={userFormRules.lastName}
                             >
                                 <Input />
                             </Form.Item>
@@ -98,7 +100,7 @@ export function User() {
                             <Form.Item
                                 label='E-mail'
                                 name='email'
-                                rules={formRules.email}
+                                rules={userFormRules.email}
                             >
                                 <Input />
                             </Form.Item>
@@ -109,7 +111,7 @@ export function User() {
                             <Form.Item
                                 label='Password'
                                 name='password'
-                                rules={formRules.password}
+                                rules={userFormRules.password}
                             >
                                 <Input.Password />
                             </Form.Item>
@@ -117,7 +119,10 @@ export function User() {
                     </Row>
                     <Row gutter={[0, 18]}>
                         <Col span={24}>
-                            <Form.Item name='newsletter' valuePropName="checked" {...tailLayout}>
+                            <Form.Item 
+                                name='newsletter' 
+                                valuePropName="checked" 
+                                {...tailLayout}>
                                 <Checkbox>I want to receive emails from you</Checkbox>
                             </Form.Item>
                         </Col>
