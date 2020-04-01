@@ -20,9 +20,9 @@ export interface UserFormRules {
     password: Array<Object>;
 }
 
-const getInitialValues = (values: any) => {
+const getInitialValues = (props: any) => {
     const currentInitialValues: UserFormValues = initialValues;
-    const { firstName, lastName, email, password, newsletter } = values;
+    const { firstName, lastName, email, password, newsletter } = props;
 
     if (firstName) {
         currentInitialValues.firstName = firstName;
@@ -43,10 +43,10 @@ const getInitialValues = (values: any) => {
     return currentInitialValues;
 }
 
-export function User({ userFormValues = initialValues }: any) {
+export function User(props: any) {
     const { Title } = Typography;
 
-    const formValues = getInitialValues(userFormValues);
+    const formValues = getInitialValues(props);
 
     const layout = {
         labelCol: { span: 4 },
