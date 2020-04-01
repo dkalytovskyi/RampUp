@@ -1,6 +1,5 @@
 import React from 'react';
-import { Input, Row, Button, Checkbox, Typography, Col } from 'antd';
-import { Formik, Form } from 'formik';
+import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
 
 import './styles.css';
   
@@ -13,7 +12,7 @@ interface MyFormValues {
 }
 
 export function User() {
-    const { Title, Text } = Typography;
+    const { Title } = Typography;
 
     const initialValues: MyFormValues = { 
         firstName: '',
@@ -23,88 +22,100 @@ export function User() {
         newsletter: false
     };
 
+    const layout = {
+        labelCol: { span: 4 },
+        wrapperCol: { span: 20 },
+    };
+
+    const tailLayout = {
+        wrapperCol: { offset: 4, span: 20 },
+    };
+
+    const onFinish = (values: any) => {
+        console.log(values);
+    };
+
     return (
         <div className='signUpFormContainer'>
             <div className='centeredContentContainer'>
                 <Title level={3}>Sign Up</Title>
             </div>
-            <Formik
-            initialValues={initialValues}
-            onSubmit={(values, actions) => {
-                console.log(values, actions);
-                alert(JSON.stringify(values, null, 2));
-            }}
+            <Form
+                {...layout}
+                name='signup'
+                initialValues={initialValues}
+                onFinish={onFinish}
             >
-            {props => (
-                <Form>
-                    <Input.Group size='large'>
-                        <Row gutter={[0, 18]}>
-                            <Col span={24}>
-                                <Input 
-                                    onChange={props.handleChange}
-                                    value={props.values.firstName}
-                                    name='firstName'
-                                    onBlur={props.handleBlur}
-                                    placeholder='First name'
-                                />
-                            </Col>
-                        </Row>
-                        <Row gutter={[0,18]}>
-                            <Col span={24}>
-                                <Input 
-                                    onChange={props.handleChange}
-                                    value={props.values.lastName}
-                                    name='lastName'
-                                    onBlur={props.handleBlur}
-                                    placeholder='Last name'
-                                />
-                            </Col>
-                        </Row>
-                        <Row gutter={[0, 18]}>
-                            <Col span={24}>
-                                <Input 
-                                    onChange={props.handleChange}
-                                    value={props.values.email}
-                                    name='email'
-                                    onBlur={props.handleBlur}
-                                    placeholder='Email'
-                                />
-                            </Col>
-                        </Row>
-                        <Row gutter={[0, 18]}>
-                            <Col span={24}>
-                                <Input.Password
-                                    onChange={props.handleChange}
-                                    value={props.values.password}
-                                    name='password'
-                                    onBlur={props.handleBlur}
-                                    placeholder='Password'
-                                />
-                            </Col>
-                        </Row>
-                        <Row gutter={[0, 18]}>
-                            <Col span={12} offset={6}>
-                                <div className='centeredContentContainer'>
-                                    <Checkbox
-                                        onChange={props.handleChange}
-                                        checked={props.values.newsletter}
-                                        name='newsletter'
-                                    />
-                                    <Text style={{marginLeft: '5px'}}>I want to receive emails from you</Text>
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row gutter={[0, 18]}>
-                            <Col span={12} offset={6}>
-                                <div className='centeredContentContainer'>
-                                    <Button type='primary' htmlType='submit'>Submit</Button>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Input.Group>
-                </Form>
-            )}
-            </Formik>
+                <Input.Group size='large'>
+                    <Row gutter={[0, 18]}>
+                        <Col span={24}>
+                            <Form.Item
+                                label='First name'
+                                name='firstName'
+                                rules={[{ required: true, message: 'Please input your first name!' }]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={[0,18]}>
+                        <Col span={24}>
+                            <Form.Item
+                                label='Last name'
+                                name='lastName'
+                                rules={[{ required: true, message: 'Please input your last name!' }]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={[0, 18]}>
+                        <Col span={24}>
+                            <Form.Item
+                                label='Email'
+                                name='email'
+                                rules={[
+                                    {
+                                      type: 'email',
+                                      message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                      required: true,
+                                      message: 'Please input your E-mail!',
+                                    },
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={[0, 18]}>
+                        <Col span={24}>
+                            <Form.Item
+                                label='Password'
+                                name='password'
+                                rules={[{ required: true, message: 'Please input your password!' }]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={[0, 18]}>
+                        <Col span={24}>
+                            <Form.Item name='newsletter' valuePropName="checked" {...tailLayout}>
+                                <Checkbox>I want to receive emails from you</Checkbox>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={[0, 18]}>
+                        <Col span={24}>
+                            <Form.Item {...tailLayout}>
+                                <Button type='primary' htmlType='submit'>Submit</Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Input.Group>
+            </Form>
         </div>
     );
 }
