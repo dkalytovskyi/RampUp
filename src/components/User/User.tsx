@@ -11,6 +11,13 @@ interface MyFormValues {
     newsletter: boolean;
 }
 
+interface MyFormRules {
+    firstName: Array<Object>;
+    lastName: Array<Object>;
+    email: Array<Object>;
+    password: Array<Object>;
+}
+
 export function User() {
     const { Title } = Typography;
 
@@ -21,6 +28,23 @@ export function User() {
         password: '',
         newsletter: false
     };
+
+    const formRules: MyFormRules = {
+        firstName: [{
+            required: true, message: 'Please input your first name!'
+        }],
+        lastName: [{
+            required: true, message: 'Please input your last name!'
+        }],
+        email: [{ 
+            required: true, message: 'Please input your E-mail!'
+        }, {
+            type: 'email', message: 'Invalid E-mail!'
+        }],
+        password: [{
+            required: true, message: 'Please input your password!'
+        }],
+    }
 
     const layout = {
         labelCol: { span: 4 },
@@ -52,7 +76,7 @@ export function User() {
                             <Form.Item
                                 label='First name'
                                 name='firstName'
-                                rules={[{ required: true, message: 'Please input your first name!' }]}
+                                rules={formRules.firstName}
                             >
                                 <Input />
                             </Form.Item>
@@ -63,7 +87,7 @@ export function User() {
                             <Form.Item
                                 label='Last name'
                                 name='lastName'
-                                rules={[{ required: true, message: 'Please input your last name!' }]}
+                                rules={formRules.lastName}
                             >
                                 <Input />
                             </Form.Item>
@@ -72,18 +96,9 @@ export function User() {
                     <Row gutter={[0, 18]}>
                         <Col span={24}>
                             <Form.Item
-                                label='Email'
+                                label='E-mail'
                                 name='email'
-                                rules={[
-                                    {
-                                      type: 'email',
-                                      message: 'The input is not valid E-mail!',
-                                    },
-                                    {
-                                      required: true,
-                                      message: 'Please input your E-mail!',
-                                    },
-                                ]}
+                                rules={formRules.email}
                             >
                                 <Input />
                             </Form.Item>
@@ -94,7 +109,7 @@ export function User() {
                             <Form.Item
                                 label='Password'
                                 name='password'
-                                rules={[{ required: true, message: 'Please input your password!' }]}
+                                rules={formRules.password}
                             >
                                 <Input.Password />
                             </Form.Item>
