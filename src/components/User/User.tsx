@@ -4,19 +4,20 @@ import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
 import './styles.css';
   
 export interface Props {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    password?: string;
-    newsletter?: boolean;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    newsletter: boolean;
+    additionalInfo?: string;
 };
 
 export interface UserFormValues {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    password?: string;
-    newsletter?: boolean;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    newsletter: boolean;
 };
 
 export interface UserFormRules {
@@ -44,7 +45,13 @@ const userFormRules: UserFormRules = {
 };
 
 const getInitialValues = (props: Props): UserFormValues => {
-    return {...props};
+    return ({
+        firstName: props.firstName,
+        lastName: props.lastName,
+        email: props.email,
+        password: props.password,
+        newsletter: props.newsletter
+    })
 }
 
 export const User: FC<Props> = (props) => {
@@ -145,9 +152,5 @@ export const User: FC<Props> = (props) => {
 };
 
 User.defaultProps = { 
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    newsletter: true
+    additionalInfo: '',
 };
