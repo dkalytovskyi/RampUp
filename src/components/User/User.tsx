@@ -11,22 +11,6 @@ export interface Props {
     newsletter?: boolean;
 };
 
-interface DefaultProps {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    newsletter: boolean;
-};
-
-const defaultProps: DefaultProps = { 
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    newsletter: true
-};
-
 export interface UserFormValues {
     firstName?: string;
     lastName?: string;
@@ -160,4 +144,10 @@ export const User: FC<Props> = (props) => {
     );
 };
 
-User.defaultProps = defaultProps;
+User.defaultProps = { 
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    newsletter: true
+};
