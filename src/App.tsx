@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Typography } from 'antd'; 
+import { Typography } from 'antd';
+
+import User from './components/User';
 
 import './App.css';
 
@@ -16,9 +18,7 @@ function App() {
         <Route path='/home'>
           <Title>Home Page</Title>
         </Route>
-        <Route path='/user'>
-          <Title>User Page</Title>
-        </Route>
+        <Route path='/user' component={User} />
       </Switch>
     </Router>
   );
