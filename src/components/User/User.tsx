@@ -5,7 +5,7 @@ import { userFormRules } from '../../constants/userConstants';
 
 import './styles.css';
   
-type Props = {
+export interface Props {
     firstName?: string;
     lastName?: string;
     email?: string;
@@ -13,7 +13,7 @@ type Props = {
     newsletter?: boolean;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     firstName: string;
     lastName: string;
     email: string;
