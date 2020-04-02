@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
 
-import { userFormRules } from '../../constants/userConstants';
-
 import './styles.css';
   
 export interface Props {
@@ -42,6 +40,23 @@ export interface UserFormRules {
     lastName: Array<Object>;
     email: Array<Object>;
     password: Array<Object>;
+};
+
+const userFormRules: UserFormRules = {
+    firstName: [{
+        required: true, message: 'Please input your first name!'
+    }],
+    lastName: [{
+        required: true, message: 'Please input your last name!'
+    }],
+    email: [{ 
+        required: true, message: 'Please input your E-mail!'
+    }, {
+        type: 'email', message: 'Invalid E-mail!'
+    }],
+    password: [{
+        required: true, message: 'Please input your password!'
+    }],
 };
 
 const getInitialValues = (props: Props): UserFormValues => {
