@@ -1,24 +1,44 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Typography } from 'antd';
 
 import User from './components/User';
+import Home from './components/Home';
+import Navbar from './components/Navbar';
 
 import './App.css';
 
 function App() {
-  const { Title } = Typography;
+  const items = [
+    {
+      text: 'Home',
+      link: '/home',
+      id: 1
+    }, {
+      text: 'User',
+      link: '/user',
+      id: 2
+    }
+  ]
 
   return (
     <Router>
+      <Navbar items={items} />
       <Switch>
         <Route exact path='/'>
-          <Title>Home Page</Title>
+          <Home />
         </Route>
         <Route path='/home'>
-          <Title>Home Page</Title>
+          <Home />
         </Route>
-        <Route path='/user' component={User} />
+        <Route path='/user'>
+          <User 
+            firstName='Sam'
+            lastName='Smith'
+            email='sam@smith.com'
+            password='12345'
+            newsletter={false}
+          />
+        </Route>
       </Switch>
     </Router>
   );
