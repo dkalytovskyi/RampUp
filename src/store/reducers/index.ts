@@ -2,7 +2,7 @@ import signupReducer from './signup';
 import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
-    signup: signupReducer
+    users: signupReducer
 });
 
 export default allReducers;

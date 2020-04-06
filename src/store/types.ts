@@ -6,5 +6,5 @@ export interface SignupReducer {
 }
 
 export interface RootState {
-    signup: UserFormValues;
+    users: Array<UserFormValues>;
 }

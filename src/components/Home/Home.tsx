@@ -7,15 +7,15 @@ import { RootState } from '../../store/types';
 import './styles.css';
 
 export const Home: FC = () => {
-    const selectName = (state: RootState) => state.signup;
+    const selectName = (state: RootState) => state.users;
 
-    const user = useSelector(selectName);
+    const users = useSelector(selectName);
     
     const { Title } = Typography;
 
     return (
         <div className="centeredContentContainer homePageContent">
-            {user.firstName ? <Title>Hello {user.firstName}!</Title> : <Title>Hello World!</Title>}
+            {users.length ? <Title>Hello {users[users.length-1].firstName}!</Title> : <Title>Hello World!</Title>}
         </div>
     )
 }

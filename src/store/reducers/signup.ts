@@ -1,11 +1,16 @@
-import { SignupReducer } from '../types';
+import { produce } from 'immer';
 
-const signupReducer = (state={}, action: SignupReducer) => {
+import { SignupReducer } from '../types';
+import { UserFormValues } from '../../components/User/User';
+
+const signupReducer = (users: Array<UserFormValues> = [], action: SignupReducer) => {
     switch (action.type) {
         case 'SIGNUP_ASYNC':
-            return action.payload;
+            return produce(users, (draftState) => {
+                draftState.push(action.payload);
+            });
         default:
-            return state;
+            return users;
     }
 }
 
