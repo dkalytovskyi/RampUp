@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { signup } from '../../store/actions';
 
@@ -60,7 +59,6 @@ const getInitialValues = (props: Props): UserFormValues => {
 
 export const User: FC<Props> = (props) => {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const { Title } = Typography;
 
@@ -84,7 +82,6 @@ export const User: FC<Props> = (props) => {
             newsletter: values.newsletter
         }
         dispatch(signup(formValues));
-        history.push('/home');
     };
 
     return (
