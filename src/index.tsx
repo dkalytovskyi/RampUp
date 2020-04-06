@@ -4,9 +4,26 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { createStore, applyMiddleware } from 'redux';
+import allReducer from './store/reducers';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import { watchSignUp } from './sagas/saga';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  allReducer,
+  applyMiddleware(sagaMiddleware)
+);
+
+sagaMiddleware.run(watchSignUp);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

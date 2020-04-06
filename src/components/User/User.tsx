@@ -1,5 +1,8 @@
 import React, { FC } from 'react';
 import { Input, Row, Button, Checkbox, Typography, Col, Form } from 'antd';
+import { useDispatch } from 'react-redux';
+
+import { signup } from '../../store/actions';
 
 import './styles.css';
   
@@ -55,6 +58,8 @@ const getInitialValues = (props: Props): UserFormValues => {
 }
 
 export const User: FC<Props> = (props) => {
+    const dispatch = useDispatch();
+
     const { Title } = Typography;
 
     const formValues = getInitialValues(props);
@@ -69,7 +74,14 @@ export const User: FC<Props> = (props) => {
     };
 
     const onFinish = (values: any) => {
-        console.log(values);
+        const formValues: UserFormValues = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            password: values.password,
+            newsletter: values.newsletter
+        }
+        dispatch(signup(formValues));
     };
 
     return (
