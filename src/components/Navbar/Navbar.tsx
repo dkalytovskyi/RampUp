@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export interface NavbarProps {
     items: Array<NavbarItem>;
@@ -18,11 +18,16 @@ const getInitialItems = (props: NavbarProps): Array<NavbarItem> => {
 
 export const Navbar: FC<NavbarProps> = (props) => {
     const initialItems = getInitialItems(props);
+    const location = useLocation();
 
     return (
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[initialItems[0].id.toString()]}>
-            {initialItems.map(({ text, link, id }) => (
-                <Menu.Item key={id}>
+        <Menu 
+            theme="dark" 
+            mode="horizontal" 
+            defaultSelectedKeys={[initialItems[0].link]}
+            selectedKeys={[location.pathname]}>
+            {initialItems.map(({ text, link }) => (
+                <Menu.Item key={link}>
                     <Link to={link}>{text}</Link>
                 </Menu.Item>
             ))}
