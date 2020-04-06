@@ -23,9 +23,8 @@ export const Navbar: FC<NavbarProps> = (props) => {
     return (
         <Menu 
             theme="dark" 
-            mode="horizontal" 
-            defaultSelectedKeys={[initialItems[0].link]}
-            selectedKeys={[location.pathname]}>
+            mode="horizontal"
+            selectedKeys={[location.pathname === '/' ? initialItems[0].link : location.pathname]}>
             {initialItems.map(({ text, link }) => (
                 <Menu.Item key={link}>
                     <Link to={link}>{text}</Link>
